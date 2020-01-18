@@ -4,8 +4,8 @@
     "description": "WorldChat Online",
     "dependencies": {
         "express": "^4.17.1",
-        "socket.io": "^2.2.0",
-        "http": "*"
+        "http": "*",
+        "socket.io": "^2.3.0"
     },
     "main": "index.js",
     "scripts": {

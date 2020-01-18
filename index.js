@@ -2,10 +2,10 @@
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+const webport = 80;
 var message_history = [];
 
 app.get('/', function(req, res){
-    console.log("New request to index.html");
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -29,6 +29,6 @@ io.on('connection', function(socket){
 
 });
 
-http.listen(80, function(){
-    console.log('listening on *:80');
+http.listen(webport, function(){
+    console.log('listening on *:' + webport);
 })
