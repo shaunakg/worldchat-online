@@ -2,7 +2,7 @@
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-const webport = 80;
+const webport = process.env.PORT || 8080;
 var message_history = [];
 
 app.get('/', function(req, res){
