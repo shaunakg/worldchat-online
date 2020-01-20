@@ -6,11 +6,21 @@ const webport = 80;
 var message_history = [];
 
 app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + "/index.html");
 });
 
-app.get('/stylesheet.css', function(req, res){
-    res.sendFile(__dirname + '/stylesheet.css', headers = {
+app.get('/chat.html', function (req, res) {
+    res.sendFile(__dirname + "/chat.html");
+})
+
+app.get('/index.css', function(req, res){
+    res.sendFile(__dirname + '/index.css', headers = {
+        'Content-Type' : 'text/css'
+    });
+});
+
+app.get('/chat.css', function(req, res){
+    res.sendFile(__dirname + '/chat.css', headers = {
         'Content-Type' : 'text/css'
     });
 });

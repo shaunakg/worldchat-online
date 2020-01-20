@@ -1,66 +1,15 @@
-<!doctype html>
-<html>
- 	<head>
-		<title>WorldChat Online</title>
-		
-		<link rel="stylesheet" href="stylesheet.css">
-		<title>WorldChat Online</title>
+<!DOCTYPE html>
 
-		<script src="/socket.io/socket.io.js"></script>
-		<!-- <script src="jquery-1.11.1.js"></script> -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script>
-		$(function () {
-			var socket = io();
+<head>
 
-			socket.emit("chat message", [$('#uid').val(), "A wild new user has arrived!"]);
+    <title>WorldChat Online</title>
+    <link rel="stylesheet" href="index.css">
 
-			$('form').submit(function(e){
-				e.preventDefault(); // prevents page reloading
-				socket.emit('chat message', [$('#uid').val(), $('#m').val()]);
-				$('#m').val('');
-				return false;
-			});
+</head>
 
-			socket.on('chat message', function(msg){
+<div class="center-div">
 
-				if (msg[0] == $('#uid').val()) {
-					$('#messages').append($('<li class="my-message">').text("[" + msg[0] + "] " + msg[1]));
-				} else if (msg[0] == "ADMIN") {
-					$('#messages').append($('<li class="admin-message">').text("[" + msg[0] + "] " + msg[1]));
-				} else {
-					$('#messages').append($('<li class="their-message">').text("[" + msg[0] + "] " + msg[1]));
-				}
+    <p class="main-welcome">Welcome to WorldChat.</p>
+    <button onclick="document.location.href = '/chat.html'" class="get-started-button">Get Started</button>
 
-			});
-
-		});
-		</script>
-	 </head>
-	 
- 	<body>
-
-		<ul id="messages"></ul>
-		<form action="">
-			<input type="hidden" value="" id="uid">
-			<input id="m" autocomplete="off" required><button>Send</button>
-		</form>
-
- 	</body>
-
-	<script>
-
-	function makeid(length) {
-		var result           = '';
-		var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		var charactersLength = characters.length;
-		for ( var i = 0; i < length; i++ ) {
-			result += characters.charAt(Math.floor(Math.random() * charactersLength));
-		}
-		return result;
-	}
-	
-	$('#uid').val(makeid(5));
-	
- 	</script>
-</html>
+</div>
