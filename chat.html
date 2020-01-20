@@ -28,7 +28,7 @@
 
 			socket.on('server-starting-package', function (data) {
 				privUsers = data[0];
-				socket.emit("chat message", [$('#uid').val(), "A wild new user has arrived!"]);
+				socket.emit("chat message", [$('#uid').val(), "A wild new user has arrived! (" + data[1] + ")"]);
 				$('#m').prop("placeholder", "");
 				$('#m').prop("disabled", false);
 				$('#send-btn').prop("disabled", false);

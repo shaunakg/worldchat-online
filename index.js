@@ -4,6 +4,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 const webport = process.env.PORT || 8080;
 var message_history = [];
+var latest_ip;
 
 const privUsers = [
     "admin",
@@ -19,6 +20,7 @@ app.get('/', function(req, res){
 
 app.get('/chat.html', function (req, res) {
     console.log("Request to chat by: " + (req.headers['x-forwarded-for'] || req.connection.remoteAddress))
+    latest_ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress);
     res.sendFile(__dirname + "/chat.html");
 })
 
@@ -57,7 +59,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('client-starting-package', function (package) {
-        socket.emit('server-starting-package', [privUsers]);
+        socket.emit('server-starting-package', [privUsers, latest_ip]);
     });
 
 });
