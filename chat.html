@@ -80,6 +80,8 @@
 
 	<script>
 
+	var newid;
+
 	function makeid(length) {
 		var result           = '';
 		var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -94,7 +96,12 @@
 
 	$('#id-btn').click(function (e) {
 		e.preventDefault();
-		$('#uid').val(prompt("Please enter a user ID:", $("#uid").val()));
+
+		newid = prompt("Please enter a user ID:", $("#uid").val());
+		io().emit('chat message', ["x-user-information", $('#uid').val() + " switching usernames to " + newid]);
+
+		$('#uid').val(newid);
+
 	})
 	
  	</script>
