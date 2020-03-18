@@ -1,4 +1,8 @@
 
+	// WorldChat Online main chat server controller
+	// Copyright (c) @shaunakg
+	// Licensed under the MIT License
+
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
