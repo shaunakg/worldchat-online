@@ -1,5 +1,5 @@
 
-	// WorldChat Online main chat server controller
+    // WorldChat Online main chat server controller
 	// Copyright (c) @shaunakg
 	// Licensed under the MIT License
 
@@ -14,7 +14,8 @@ const privUsers = [
     "admin",
     "developer",
     "system/regulation-enforcement",
-    "system/information"
+    "system/information",
+    "system/status"
 ];
 
 app.get('/', function(req, res){
@@ -42,6 +43,14 @@ app.get('/chat.css', function(req, res){
 
 app.get('/jquery-1.11.1.js', function(req, res){
     res.sendFile(__dirname + '/jquery-1.11.1.js');
+});
+
+app.get('/api/endpoint/reset', function (req, res) {
+
+    io.emit("client-action", [0]);
+    io.emit("chat message", [privUsers[4], "Chat reset performed via API endpoint by " + (req.headers['x-forwarded-for'] || req.connection.remoteAddress)])
+    res.end("Performed chat reset via API endpoint.")
+
 });
 
 io.emit("client-action", [0]);
