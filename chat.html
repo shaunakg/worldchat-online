@@ -22,7 +22,18 @@
 		
 		<script>
 
-		var privUsers;
+		var notifications = [];
+		var privUsers, lastNotification;
+
+		function notifyUser(theIcon, theTitle, theBody) {
+			lastNotification = new Notification(theTitle, {
+				icon: theIcon,
+				body: theBody,
+			});
+			notifications.append(lastNotification);
+		}
+
+		Notification.requestPermission();
 
 		$(function () {
 			var socket = io();
@@ -50,8 +61,10 @@
 					$('#messages').append($('<li class="my-message">').text("[" + msg[0] + "] " + msg[1]));
 				} else if (privUsers.includes(msg[0].toLowerCase())) {
 					$('#messages').append($('<li class="admin-message">').text("[" + msg[0] + "] " + msg[1]));
+					notifyUser("images/new_msg.png", "Worldchat: New administrative message from " + msg[0], msg[1]);
 				} else {
 					$('#messages').append($('<li class="their-message">').text("[" + msg[0] + "] " + msg[1]));
+					notifyUser("images/new_msg.png", "Worldchat: New message from " + msg[0], msg[1]);
 				}
 
 			});

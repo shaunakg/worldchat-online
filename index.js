@@ -23,7 +23,7 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + "/index.html");
 });
 
-app.get('/chat.html', function (req, res) {
+app.get('/chat', function (req, res) {
     console.log("Request to chat by: " + (req.headers['x-forwarded-for'] || req.connection.remoteAddress))
     latest_ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress);
     res.sendFile(__dirname + "/chat.html");
@@ -39,6 +39,10 @@ app.get('/chat.css', function(req, res){
     res.sendFile(__dirname + '/chat.css', headers = {
         'Content-Type' : 'text/css'
     });
+});
+
+app.get('/images/new_msg.png', function (req, res) {
+    res.sendFile(__dirname + "/images/new_msg.png");
 });
 
 app.get('/jquery-1.11.1.js', function(req, res){
