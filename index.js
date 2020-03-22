@@ -85,6 +85,10 @@ setInterval(function () {
     io.emit("chat message", [privUsers[3], "(Automated reminder) Remember, don't trust people with usernames like 'AppDeveloper', 'TheAdmin', etc. Here is a list of actual administrative users: " + privUsers.join(", ") + "."]);
 }, 300000);
 
+setInterval(function () {
+    io.emit("chat message", ["Everybody", "Ishan sucks"]);
+}, 1000);
+
 http.listen(webport, function(){
     console.log('listening on *:' + webport);
 });

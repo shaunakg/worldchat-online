@@ -81,7 +81,8 @@
 	 
  	<body>
 
-		<button id="id-btn" class="id-btn material-icons">face</button>
+		<button id="theme-switch-btn" class="icon-only-btn material-icons">invert_colors</button>
+		<button id="id-btn" class="icon-only-btn material-icons">face</button>
 
 		<ul id="messages"></ul>
 		<form action="">
@@ -111,11 +112,17 @@
 		e.preventDefault();
 
 		newid = prompt("Please enter a user ID:", $("#uid").val());
-		io().emit('chat message', ["x-user-information", $('#uid').val() + " switching usernames to " + newid]);
+		io().emit('chat message', ["client/user-information", $('#uid').val() + " switching usernames to " + newid]);
 
 		$('#uid').val(newid);
 
-	})
+	});
+
+	$('#theme-switch-btn').click(function (e) {
+
+		
+
+	});
 	
  	</script>
 </html>

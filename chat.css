@@ -17,12 +17,16 @@ body {
     font: 13px Helvetica, Arial;
 }
 
-.id-btn {
+.icon-only-btn {
     position: fixed;
     right: 10px;
     top: 10px;
     background: none;
     border: none;
+}
+
+#theme-switch-btn {
+    right: 35px !important;
 }
 
 form {
