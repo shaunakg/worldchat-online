@@ -1,8 +1,9 @@
 
-    // WorldChat Online main chat server controller
-	// Copyright (c) @shaunakg
-	// Licensed under the MIT License
+// WorldChat Online main chat server controller
+// Copyright (c) @shaunakg
+// Licensed under the MIT License
 
+var packageJson = require("./package.json");
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
@@ -49,6 +50,20 @@ app.get('/jquery-1.11.1.js', function(req, res){
     res.sendFile(__dirname + '/jquery-1.11.1.js');
 });
 
+app.get('/api/endpoint/server-info', function (req,res) {
+
+    var nowDate = new Date();
+    var starting_msg = "\nWorldchat Online Server, version " + packageJson.version + "\ncreated by @shaunakg - https://github.com/shaunakg/worldchat-online\n\n";
+
+    res.write(starting_msg);
+    res.write('Server uptime (s): ' + process.uptime() + " as of " + nowDate.getTime() + "\n");
+    res.write('Listening for connection on: ' + webport + "\n");
+    res.end();
+
+});
+
+
+
 app.get('/api/endpoint/reset', function (req, res) {
 
     io.emit("client-action", [0]);
@@ -73,6 +88,7 @@ io.on('connection', function(socket){
             message_history.push(msg);
             io.emit('chat message', msg);
         }
+
     });
 
     socket.on('client-starting-package', function (package) {
