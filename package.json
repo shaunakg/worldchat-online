@@ -1,10 +1,10 @@
 {
     "name": "worldchat-online",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "WorldChat Online",
     "repository": {
-        "type" : "git",
-        "url" : "https://github.com/shaunakg/worldchat-online.git"
+        "type": "git",
+        "url": "https://github.com/shaunakg/worldchat-online.git"
     },
     "dependencies": {
         "express": "^4.17.1",
