@@ -81,7 +81,6 @@ io.on('connection', function(socket){
         if (privUsers.includes(msg[0].toLowerCase())) {
             let admin_msg = [privUsers[2].toUpperCase(), "Sorry, your user ID is not allowed. Please change it by pressing the button in the top right of the screen."];
             console.log("[" + admin_msg[0] + "] " + admin_msg[1]);
-            message_history.push(admin_msg);
             socket.emit('chat message', admin_msg);
         } else {
             console.log("[" + msg[0] + "] " + msg[1]);

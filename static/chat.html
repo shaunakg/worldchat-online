@@ -23,17 +23,22 @@
 		<script>
 
 		var notifications = [];
+		var doNotifications = false;
 		var privUsers, lastNotification;
 
 		function notifyUser(theIcon, theTitle, theBody) {
-			lastNotification = new Notification(theTitle, {
-				icon: theIcon,
-				body: theBody,
-			});
-			notifications.append(lastNotification);
+			if (doNotifications && Notification.permission == "granted") {
+				lastNotification = new Notification(theTitle, {
+					icon: theIcon,
+					body: theBody,
+				});
+				notifications.push(lastNotification);
+			}
 		}
 
-		Notification.requestPermission();
+		Notification.requestPermission().then(function (permission) {
+			doNotifications = true;
+		});
 
 		$(function () {
 			var socket = io();
@@ -81,11 +86,12 @@
 	 
  	<body>
 
-		<button id="theme-switch-btn" class="icon-only-btn material-icons">invert_colors</button>
-		<button id="id-btn" class="icon-only-btn material-icons">face</button>
+		<button id="theme-switch-btn" class="icon-only-btn material-icons" title="Switch to dark theme.">invert_colors</button>
+		<button id="id-btn" class="icon-only-btn material-icons" title="Change user ID.">face</button>
+		<button id="notif-btn" class="icon-only-btn material-icons" title="Change notification setting."></button>
 
 		<ul id="messages"></ul>
-		<form action="">
+		<form id="message_input_form" action="">
 			<input type="hidden" value="" id="uid">
 			<input id="m" autocomplete="off" placeholder="Please wait, waiting for server provisioning..." required disabled><button id="send-btn" class="btn send-btn" disabled>Send</button>
 		</form>
@@ -95,10 +101,58 @@
 	<script>
 
 	var newid;
+	var dark_now = 0;
+
+	// Assign variables to key theme elements
+	const notif_btn = document.getElementById("notif-btn");
+	const theme_btn = document.getElementById("theme-switch-btn");
+	const uid_btn = document.getElementById('id-btn');
+	const messageInput = document.getElementById('m');
+	const importForm = document.getElementById('message_input_form');
+	const sendBtn = document.getElementById('send-btn');
+
+	if (window.location.hash == "dark") {
+		dark_now = 1;
+		toDark(dark_now);
+	}
+	
+	if (Notification.permission == "granted") {
+		notif_btn.innerText = "record_voice_over";
+	} else {
+		notif_btn.innerText = "voice_over_off";
+	}
+
+	function toDark(switchee) {
+		if (switchee) {
+
+			document.body.style.backgroundColor = "#4f4f4f";
+			messageInput.style.backgroundColor = "#ffa12e";
+			importForm.style.backgroundColor = "#b06100";
+			sendBtn.style.backgroundColor = "#070063";
+			sendBtn.style.color = "white";
+
+			uid_btn.classList.add("dark-btn");
+			theme_btn.classList.add("dark-btn");
+			notif_btn.classList.add("dark-btn");
+
+		} else if (!switchee) {
+
+			document.body.style.backgroundColor = "unset";
+			messageInput.style.backgroundColor = "unset";
+			importForm.style.backgroundColor = "#eee";
+			sendBtn.style.backgroundColor = "rgb(130, 224, 255)";
+			sendBtn.style.color = "black";
+
+			uid_btn.classList.remove('dark-btn');
+			theme_btn.classList.remove('dark-btn');
+			notif_btn.classList.remove('dark-btn');
+
+		}
+	}
 
 	function makeid(length) {
-		var result           = '';
-		var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		var result = '';
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		var charactersLength = characters.length;
 		for ( var i = 0; i < length; i++ ) {
 			result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -108,21 +162,31 @@
 	
 	$('#uid').val(makeid(5));
 
-	$('#id-btn').click(function (e) {
+	uid_btn.click(function (e) {
 		e.preventDefault();
 
 		newid = prompt("Please enter a user ID:", $("#uid").val());
-		io().emit('chat message', ["client/user-information", $('#uid').val() + " switching usernames to " + newid]);
 
-		$('#uid').val(newid);
+		if (newid.length > 2) {
+			io().emit('chat message', ["client/user-information", $('#uid').val() + " switching usernames to " + newid]);
+			$('#uid').val(newid);
+		}
 
 	});
 
 	$('#theme-switch-btn').click(function (e) {
-
-		
-
+		toDark(!dark_now);
+		dark_now = !dark_now;
 	});
+
+	notif_btn.onclick = function () {
+		if (doNotifications) {
+			this.innerText = "voice_over_off";
+		} else {
+			this.innerText = "record_voice_over";
+		}
+		doNotifications = !doNotifications;
+	}
 	
  	</script>
 </html>

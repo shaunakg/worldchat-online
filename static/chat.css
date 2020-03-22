@@ -11,6 +11,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    transition: color .5s, background-color .5s, filter .5s !important;
 }
 
 body {
@@ -25,8 +27,16 @@ body {
     border: none;
 }
 
+.icon-only-btn.dark-btn {
+    filter: invert(100%);
+}
+
 #theme-switch-btn {
     right: 35px !important;
+}
+
+#notif-btn {
+    right: 60px !important;
 }
 
 form {
