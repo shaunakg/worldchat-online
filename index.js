@@ -21,23 +21,23 @@ const privUsers = [
 
 app.get('/', function(req, res){
     console.log("Request to index by: " + (req.headers['x-forwarded-for'] || req.connection.remoteAddress));
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(__dirname + "/static/index.html");
 });
 
 app.get('/chat', function (req, res) {
     console.log("Request to chat by: " + (req.headers['x-forwarded-for'] || req.connection.remoteAddress))
     latest_ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress);
-    res.sendFile(__dirname + "/chat.html");
+    res.sendFile(__dirname + "/static/chat.html");
 })
 
 app.get('/index.css', function(req, res){
-    res.sendFile(__dirname + '/index.css', headers = {
+    res.sendFile(__dirname + '/static/index.css', headers = {
         'Content-Type' : 'text/css'
     });
 });
 
 app.get('/chat.css', function(req, res){
-    res.sendFile(__dirname + '/chat.css', headers = {
+    res.sendFile(__dirname + '/static/chat.css', headers = {
         'Content-Type' : 'text/css'
     });
 });
