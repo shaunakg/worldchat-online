@@ -23,6 +23,7 @@ body {
     position: fixed;
     right: 10px;
     top: 10px;
+    z-index: 100;
     background: none;
     border: none;
 }
@@ -85,7 +86,7 @@ form input:active {
     padding: 0;
 }
 
-#messages li {
+#messages li.msg {
     padding: 5px 10px;
     border: 1px solid black;
     border-top: none;
@@ -101,4 +102,8 @@ form input:active {
 
 #messages li.admin-message {
     background: pink;
+}
+
+#messages li.dark-msg {
+    filter: brightness(50%);
 }

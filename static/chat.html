@@ -63,12 +63,12 @@
 			socket.on('chat message', function(msg){
 
 				if (msg[0].toLowerCase() == $('#uid').val().toLowerCase()) {
-					$('#messages').append($('<li class="my-message">').text("[" + msg[0] + "] " + msg[1]));
+					$('#messages').append($('<li class="msg my-message">').text("[" + msg[0] + "] " + msg[1]));
 				} else if (privUsers.includes(msg[0].toLowerCase())) {
-					$('#messages').append($('<li class="admin-message">').text("[" + msg[0] + "] " + msg[1]));
+					$('#messages').append($('<li class="msg admin-message">').text("[" + msg[0] + "] " + msg[1]));
 					notifyUser("images/new_msg.png", "Worldchat: New administrative message from " + msg[0], msg[1]);
 				} else {
-					$('#messages').append($('<li class="their-message">').text("[" + msg[0] + "] " + msg[1]));
+					$('#messages').append($('<li class="msg their-message">').text("[" + msg[0] + "] " + msg[1]));
 					notifyUser("images/new_msg.png", "Worldchat: New message from " + msg[0], msg[1]);
 				}
 
@@ -111,8 +111,8 @@
 	const importForm = document.getElementById('message_input_form');
 	const sendBtn = document.getElementById('send-btn');
 
-	if (window.location.hash == "dark") {
-		dark_now = 1;
+	if (window.location.hash == "#dark") {
+		dark_now = true;
 		toDark(dark_now);
 	}
 	
@@ -125,13 +125,16 @@
 	function toDark(switchee) {
 		if (switchee) {
 
-			document.location.hash = "dark";
+			document.location.hash = "#dark";
 
 			document.body.style.backgroundColor = "#4f4f4f";
-			messageInput.style.backgroundColor = "#ffa12e";
+			messageInput.style.backgroundColor = "#696969";
+			messageInput.style.color = "white";
 			importForm.style.backgroundColor = "#b06100";
-			sendBtn.style.backgroundColor = "#070063";
+			sendBtn.style.backgroundColor = "#3b4b87";
 			sendBtn.style.color = "white";
+
+			document.getElementById("messages").style.filter = "brightness(50%)";
 
 			uid_btn.classList.add("dark-btn");
 			theme_btn.classList.add("dark-btn");
@@ -139,13 +142,16 @@
 
 		} else if (!switchee) {
 
-			document.location.hash = null;
+			document.location.hash = "";
 
 			document.body.style.backgroundColor = "unset";
 			messageInput.style.backgroundColor = "white";
+			messageInput.style.color = "black";
 			importForm.style.backgroundColor = "#eee";
 			sendBtn.style.backgroundColor = "rgb(130, 224, 255)";
 			sendBtn.style.color = "black";
+
+			document.getElementById("messages").style.filter = "";
 
 			uid_btn.classList.remove('dark-btn');
 			theme_btn.classList.remove('dark-btn');
