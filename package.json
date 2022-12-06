@@ -7,7 +7,7 @@
         "url": "https://github.com/shaunakg/worldchat-online.git"
     },
     "dependencies": {
-        "express": "^4.17.1",
+        "express": "^4.18.2",
         "http": "*",
         "md5": "^2.2.1",
         "socket.io": "^2.3.0"
